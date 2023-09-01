@@ -1,0 +1,76 @@
+package Banking;
+import javax.swing.*;
+import java.text.DecimalFormat;
+
+
+/**This class demonstrates the use of a domain class called BankAccount.
+ * It instantiates a BankAccount object, and then conducts banking
+ * transactions against it.
+ *
+ * @author Charters
+ */
+public class BankingSystem
+{
+
+    private static BankAccount account = new BankAccount();  //this is a static variable, shared by all methods in this class.
+
+    /**
+     * The main method will call 2 static methods:  createBankAccount() and conductBankTransactions().
+     * @param args
+     */
+    public static void main(String[] args) {
+        createBankAccount();
+        conductBankTransactions();
+        System.exit(0);
+    }
+
+
+    /**
+     * The createBankAccount() method will ask the user for a dollar amount to open a bank account with.
+     * It will then create a new instance of the bank account class, and save it in a static variable (global)
+     * shared by other methods in this class.
+     */
+    public static void createBankAccount() {
+        String input;
+        DecimalFormat dollar = new DecimalFormat("#,###.00");
+
+        input = JOptionPane.showInputDialog("How much money would you like to open an account with?");
+        account.setBalance(input);
+        JOptionPane.showMessageDialog(null, "You now have a new bank account with " + dollar.format(account.getBalance()));
+    }
+
+
+    /**
+     * The conductBankTransactions() method will ask the user for an amount to deposit, and another amount to withdraw.
+     * It will invoke the deposit and withdraw methods of the account object.
+     * It will display the balance of the account after each transaction.
+     */
+    public static void conductBankTransactions() {
+
+        String input;
+        DecimalFormat dollar = new DecimalFormat("#,###.00");
+
+        // Get the amount of pay.
+        input = JOptionPane.showInputDialog("How much would you like to deposit into your bank account? ");
+
+        // Deposit the user's pay into the account.
+        account.deposit(input);
+
+        // Display the new balance.
+        JOptionPane.showMessageDialog(null,
+                "Your have successfully made a deposit.\n"
+                        + "Your new balance is $ "
+                        + dollar.format(account.getBalance()));
+
+        // Withdraw some cash from the account.
+        input = JOptionPane.showInputDialog("How much would "
+                + "you like to withdraw? ");
+        account.withdraw(input);
+
+        // Display the new balance
+        JOptionPane.showMessageDialog(null,
+                "Now your balance is $"
+                        + dollar.format(account.getBalance()));
+    }
+
+}
